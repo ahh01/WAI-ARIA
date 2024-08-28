@@ -78,3 +78,16 @@ window.addEventListener("keydown", (event) => {
   }
 });
 });
+
+
+   /*  <dialog> är ett HTML-element som underlättar skapandet av tillgängliga modalfönster.
+    fördelarna är:
+
+    Automatisk fokus: När en <dialog> öppnas, flyttas fokus till det första fokuserbara elementet inom dialogen och återställs till det ursprungliga elementet vid stängning. 
+    Detta underlättar navigering för tangentbords- och skärmläsaranvändare.
+
+    Inbyggda ARIA-roller: <dialog> tillämpar automatiskt rätt ARIA-roller, vilket hjälper skärmläsare att identifiera att det är en modal.
+
+    Standardiserad stängning: Dialogen kan stängas med close(), vilket förenklar hanteringen av stängning och fokus.
+
+    Escape-knapp stöd: <dialog> stödjer automatiskt stängning med Escape-tangenten, vilket förbättrar användbarheten för tangentbordsanvändare.  */

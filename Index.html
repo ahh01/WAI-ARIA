@@ -8,24 +8,25 @@
   </head>
   <body>
     
-    <button id="openModal"  aria-labelledby="openModalLabel" >Klicka för att öppna</button>
-      <div id="accessibleModal" hidden role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDescription">
+    <button id="openModal">Klicka för att öppna</button>
+      
+    <div id="accessibleModal" aria-labelledby="modalTitle" aria-describedby="modalDescription" style="display: none;">
         <h2 id="modalTitle">Exempel på modalfönster</h2>
         <p id="modalDescription">Här är lite text i modalfönstret.</p>
         <button id="closeModalBtn">Stäng</button>
       </div>
       
-
-      <button id="openDialog"> Öppna Dialog</button>
-      <dialog id="accessibleDialog" aria-labelledby="dialogTitle" aria-describedby="dialogContent">
-  <h2 id="dialogTitle">Exempel på tillgängligt modalfönster med &lt;dialog&gt;</h2>
-  <p id="dialogContent">Här är innehållet i modalfönstret.</p>
-  <button id="closeDialogBtn">Stäng</button>
+    <button id="openDialog">Öppna Dialog</button>
+      
+    <dialog id="accessibleDialog" aria-labelledby="dialogTitle" aria-describedby="dialogContent">
+      <h2 id="dialogTitle">Exempel på tillgängligt modalfönster med &lt;dialog&gt;</h2>
+      <p id="dialogContent">Här är innehållet i modalfönstret.</p>
+      <button id="closeDialogBtn">Stäng</button>
 </dialog>
     
  <button id="menuButton" aria-expanded="false" aria-controls="menuContent">Meny</button>
 <nav id="menuContent" aria-labelledby="menuButton" aria-hidden="true">
-  <ul>
+ <ul>
     <li><a href="#">Hem</a></li>
     <li><a href="#">Om oss</a></li>
     <li><a href="#">Tjänster</a></li>
@@ -34,9 +35,8 @@
 </nav>
 
   </body>
-</html> 
+</html><script src="script.js"></script> 
 
-<script src="script.js"></script>
-</body>
+
 </html>
 

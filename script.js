@@ -1,84 +1,82 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const openModal = document.getElementById("openModal");
-  const accessibleModal = document.getElementById("accessibleModal");
-  const closeModalBtn = document.getElementById("closeModalBtn");
+// --- Modalfönster utan dialog ---
+const openModal = document.getElementById("accessibleModal");
+const openModalBtn = document.getElementById("openModalBtn");
+const closeModalBtn = document.getElementById("closeModalBtn");
 
-  function toggleModal(show) {
-    
-    if (show) { 
-      accessibleModal.style.display = "block";
-      closeModalBtn.focus();
-      document.addEventListener("keydown", escCloseHandler);
-    } else {
-      accessibleModal.style.display = "none";
-      openModal.focus();
-      document.removeEventListener("keydown", escCloseHandler);
-    }
-  }
-
-  function escCloseHandler(event) {
-    if (event.key === "Escape") {
-      toggleModal(false);
-    }
-  }
-
-  openModal.addEventListener("click", () => toggleModal(true));
-  closeModalBtn.addEventListener("click", () => toggleModal(false));
-
-// Dialog functionality
-
-const openDialog = document.getElementById("openDialog");
-const accessibleDialog = document.getElementById("accessibleDialog");
-const closeDialogBtn = document.getElementById("closeDialogBtn");
-
-openDialog.addEventListener("click", function () {
-  accessibleDialog.showModal(); // Visar dialogen
-  closeDialogBtn.focus(); // Sätter fokus på stängknappen
-  document.addEventListener("keydown", escCloseHandler); // Lägg till hanterare för Escape-tangenten
+// Öppna modalfönstret
+openModalBtn.addEventListener("click", () => {
+  openModal.setAttribute("aria-hidden", "false");
+  openModal.style.display = "block";
+  closeModalBtn.focus(); // Sätt fokus på stängknappen
 });
 
-closeDialogBtn.addEventListener("click", function () {
-  accessibleDialog.close(); // Stänger dialogen
-  openDialog.focus(); // Återställer fokus till öppna-knappen
-  document.removeEventListener("keydown", escCloseHandler); // Ta bort Escape-hanteraren
-});
+// Stäng modalfönstret
+function closeModal() {
+  openModal.setAttribute("aria-hidden", "true");
+  openModal.style.display = "none";
+  openModalBtn.focus(); // Återställ fokus till öppna-knappen
+}
 
-accessibleDialog.addEventListener("keydown", function (event) {
-  if (event.key === "Escape") {
-    accessibleDialog.close();
-    openDialog.focus();
+closeModalBtn.addEventListener("click", closeModal);
+
+// Stäng modalfönstret med ESC-knappen
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && openModal.getAttribute("aria-hidden") === "false") {
+    closeModal();
   }
 });
 
-var menuButton = document.getElementById("menuButton");
-var menuContent = document.getElementById("menuContent");
+// --- Modalfönster med <dialog> ---
+const dialog = document.getElementById("accessibleDialog");
+const openDialogBtn = document.getElementById("openDialogBtn");
+const closeDialogBtnInDialog = document.getElementById("closeDialogBtn");
 
-menuButton.addEventListener("click", function () {
-  // Kontrollera om menyinnehållet är dolt
-  if (menuContent.hidden) {
-    menuContent.hidden = false; // Visa menyn
-    menuButton.setAttribute("aria-expanded", "true");
-    menuContent.setAttribute("aria-hidden", "false");
-    menuContent.querySelector('a').focus();
-  } else {
-    menuContent.hidden = true; // Dölj menyn
-    menuButton.setAttribute("aria-expanded", "false");
-    menuContent.setAttribute("aria-hidden", "true");
-    menuButton.focus();
+// Öppna dialog
+openDialogBtn.addEventListener("click", () => {
+  dialog.showModal();
+  closeDialogBtnInDialog.focus(); // Sätt fokus på stängknappen
+});
+
+// Stäng dialog
+closeDialogBtnInDialog.addEventListener("click", () => {
+  dialog.close();
+  openDialogBtn.focus(); // Återställ fokus till öppna-knappen
+});
+
+// Stäng dialog med ESC-knappen
+dialog.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    dialog.close();
+    openDialogBtn.focus(); // Återställ fokus till öppna-knappen
   }
 });
 
-menuContent.hidden = true;
-menuButton.setAttribute("aria-expanded", "false");
-menuContent.setAttribute("aria-hidden", "true");
+// --- Hamburgarmeny ---
+const menuButton = document.getElementById("menuButton");
+const menuContent = document.getElementById("menuContent");
 
-window.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && !menuContent.hidden) {
-    menuButton.click(); // Anropa klickhändelsen för att stänga menyn
+// Öppna/stäng menyn
+menuButton.addEventListener("click", () => {
+  const isExpanded = menuButton.getAttribute("aria-expanded") === "true";
+  toggleMenu(!isExpanded);
+});
+
+// Funktion för att öppna/stänga menyn
+function toggleMenu(isOpen) {
+  menuButton.setAttribute("aria-expanded", isOpen);
+  menuContent.setAttribute("aria-hidden", !isOpen);
+  menuContent.style.display = isOpen ? "block" : "none";
+}
+
+// Stäng hamburgarmenyn med ESC-knappen
+window.addEventListener("keydown", (e) => {
+  if (
+    e.key === "Escape" &&
+    menuButton.getAttribute("aria-expanded") === "true"
+  ) {
+    toggleMenu(false); // Stäng menyn om den är öppen
   }
 });
-});
-
 
    /*  <dialog> är ett HTML-element som underlättar skapandet av tillgängliga modalfönster.
     fördelarna är:

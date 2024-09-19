@@ -1,4 +1,4 @@
-#accessibleModal {
+ #accessibleModal {
   background-color: rgb(208, 25, 25);
   padding: 20px;
   position: fixed;
@@ -8,13 +8,14 @@
   z-index: 1000;
 }
 
-#accessibleModal[hidden] {
-  display: none;
+#menuContent{
+  display:none;
 }
-
 ul {
   display: flex;
   flex-direction: column;
 }
 
-
+ .hidden {
+  display: none;
+}
